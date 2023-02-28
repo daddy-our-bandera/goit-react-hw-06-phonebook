@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from './AddForm.styled';
 
-const AddForm = ({ onSubmit }) => {
+import { Form } from './AddForm.styled';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+
+const AddForm = () => {
+  const dispatch = useDispatch();
+
   const [inputValues, setInputValues] = useState({
     name: '',
     number: '',
@@ -15,7 +19,7 @@ const AddForm = ({ onSubmit }) => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    onSubmit(inputValues);
+    dispatch(addContact(inputValues));
     setInputValues({ name: '', number: '' });
   };
 
@@ -48,10 +52,6 @@ const AddForm = ({ onSubmit }) => {
       <button type="submit">add contact</button>
     </Form>
   );
-};
-
-AddForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default AddForm;
